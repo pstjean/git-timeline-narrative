@@ -24,6 +24,9 @@ gem 'hotwire-rails'
 # Redis for Hotwire
 gem 'redis', '~> 4.0'
 
+# Rugged, for working with Git: wrapper for libgit2 C library
+gem 'rugged', '~> 1.1', '>= 1.1.1'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 

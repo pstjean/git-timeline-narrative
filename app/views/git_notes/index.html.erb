@@ -1,2 +1,14 @@
 <h1>GitNotes#index</h1>
 <p>Find me in app/views/git_notes/index.html.erb</p>
+
+
+<h1>Git Notes</h1>
+
+<ul>
+  <% @git_notes.each do |git_note| %>
+    <li>
+      <%= git_note.path %>
+      <%= git_note.body %>
+    </li>
+  <% end %>
+</ul>

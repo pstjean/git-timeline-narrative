@@ -11,6 +11,7 @@ RSpec.describe GitNote, type: :model do
   end
 
 
+  # Largely cribbed from https://github.com/libgit2/rugged/blob/master/test/note_test.rb
   it "can create a note in a custom namespace in the repository" do
     person = {:name => 'Peter', :email => 'peter@stjean.co', :time => Time.now }
     message ="This is the note message\n\nThis note is created from Rugged"

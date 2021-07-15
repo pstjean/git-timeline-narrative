@@ -1,0 +1,2 @@
+class GitRepository < ApplicationRecord
+end

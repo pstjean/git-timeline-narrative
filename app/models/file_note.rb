@@ -1,4 +1,4 @@
 class FileNote < ApplicationRecord
   belongs_to :git_note
-  belongs_to :git_commit
+  belongs_to :git_file
 end

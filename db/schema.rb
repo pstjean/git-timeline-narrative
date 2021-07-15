@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_012014) do
+ActiveRecord::Schema.define(version: 2021_07_15_013622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 2021_07_15_012014) do
     t.integer "last_line"
     t.text "comment"
     t.bigint "git_note_id", null: false
-    t.bigint "git_commit_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["git_commit_id"], name: "index_file_notes_on_git_commit_id"
+    t.bigint "git_file_id", null: false
+    t.index ["git_file_id"], name: "index_file_notes_on_git_file_id"
     t.index ["git_note_id"], name: "index_file_notes_on_git_note_id"
   end
 
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2021_07_15_012014) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "file_notes", "git_commits"
+  add_foreign_key "file_notes", "git_files"
   add_foreign_key "file_notes", "git_notes"
   add_foreign_key "git_commits", "git_repositories"
   add_foreign_key "git_files", "git_commits"

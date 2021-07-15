@@ -10,14 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_09_002429) do
+ActiveRecord::Schema.define(version: 2021_07_15_010622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "git_commits", force: :cascade do |t|
+    t.string "hash"
+    t.bigint "git_repository_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["git_repository_id"], name: "index_git_commits_on_git_repository_id"
+    t.index ["hash"], name: "index_git_commits_on_hash", unique: true
+  end
+
   create_table "git_notes", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "git_commit_id", null: false
+    t.index ["git_commit_id"], name: "index_git_notes_on_git_commit_id"
+  end
+
+  create_table "git_repositories", force: :cascade do |t|
+    t.string "path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "git_commits", "git_repositories"
+  add_foreign_key "git_notes", "git_commits"
 end

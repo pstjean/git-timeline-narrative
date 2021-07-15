@@ -26,6 +26,7 @@ gem 'rugged', '~> 1.1', '>= 1.1.1'
 
 # Use rspec for tests
 gem 'rspec-rails'
+gem 'rails-controller-testing'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
@@ -46,6 +47,9 @@ group :development do
   gem 'spring'
   # Generate ERD diagrams from Rails models
   gem 'rails-erd'
+  # Use pry for debugging
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

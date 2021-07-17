@@ -11,4 +11,11 @@ RSpec.describe GitNotesController, :type => :controller do
       expect(assigns(:git_notes)).to eq([git_note])
     end
   end
+  describe "responds to" do
+    it "responds to html by default" do
+      testhash = 'testhash'
+      post :create, {params: { hash: testhash }}
+      expect(response.body).to eq(testhash)
+    end
+  end
 end

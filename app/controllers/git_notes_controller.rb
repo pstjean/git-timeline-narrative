@@ -1,5 +1,5 @@
 class GitNotesController < ApplicationController
   def index
-    @git_notes = Git_Note.all
+    @git_notes = GitNote.all
   end
 end

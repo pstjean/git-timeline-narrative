@@ -4,13 +4,8 @@ class GitNote < ApplicationRecord
   belongs_to :git_commit
   has_many :file_notes
   has_many :git_files, through: :file_notes
-  # attr_reader :head, :repo
-
-  # def initialize args
-  #   puts args
-  #   @repo = Rugged::Repository.new(args[:path])
-  #   @head = @repo.head
-  # end
+  attr_accessor :head, :repo
+  after_create :initialize_rugged
 
   def parse(note_text)
     # parses strings with the following format:
@@ -28,5 +23,10 @@ class GitNote < ApplicationRecord
     #                 last_line: 5, 
     #                 content: <NEXT_LINE>, 
     #                 git_note: self)
+  private
+
+  def initialize_rugged
+    self.repo = Rugged::Repository.new(self.git_commit.git_repository.path)
+    self.head = @repo.head
   end
 end

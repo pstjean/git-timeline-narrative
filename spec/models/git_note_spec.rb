@@ -4,7 +4,9 @@ require 'rugged'
 
 RSpec.describe GitNote, type: :model do
   before :all do
-    @note_model = GitNote.new(path: Rails.root)
+    @a_repo = GitRepository.create(path: Rails.root)
+    @a_commit = GitCommit.create(object_hash: '12345', git_repository: @a_repo)
+    @note_model = GitNote.create(git_commit: @a_commit)
   end
   it "can find a repository" do
     expect(@note_model.head.name).to eq "refs/heads/master"

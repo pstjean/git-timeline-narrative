@@ -4,11 +4,11 @@ RSpec.describe GitNotesController, :type => :controller do
 
   describe "GET index" do
     it "renders the index template" do
-      git_repository = GitRepository.create(path: '/a/filepath')
+      git_repository = GitRepository.create(path: Rails.root)
       git_commit = GitCommit.create(object_hash: '1234', git_repository: git_repository)
       git_note = GitNote.create(git_commit: git_commit)
       get :index
-      expect(assigns(:git_notes)).to eq([git_note])
+      expect(assigns(:git_notes)).to include(git_note)
     end
   end
   describe "responds to" do

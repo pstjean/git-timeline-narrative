@@ -23,6 +23,7 @@ class GitNote < ApplicationRecord
     #                 last_line: 5, 
     #                 content: <NEXT_LINE>, 
     #                 git_note: self)
+  end
   private
 
   def initialize_rugged

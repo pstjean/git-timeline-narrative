@@ -13,17 +13,18 @@ class GitNote < ApplicationRecord
     # This text refers to lines 3 and 3245
     m = note_text.match /^(\/.+\.rb)\s+(\d+),(\d+)\s+([\w\s]+)/ # regex captures string into groups
 
-    path = m[1] # => "/path/to/file.rb"
-    first_line = m[2] # => "3"
-    last_line = m[3] # => "3245"
-    content = m[4] # => "This text refers to lines 3 and 3245"
+    filepath = m[1] # => "/path/to/file.rb"
+    first = m[2] # => "3"
+    last = m[3] # => "3245"
+    body = m[4] # => "This text refers to lines 3 and 3245"
 
-    # FileNote.create(path: "/path/...", 
-    #                 first_line: 3, 
-    #                 last_line: 5, 
-    #                 content: <NEXT_LINE>, 
-    #                 git_note: self)
+    FileNote.create(path: filepath, 
+                    first_line: first, 
+                    last_line: last, 
+                    content: body, 
+                    git_note: self)
   end
+  
   private
 
   def initialize_rugged

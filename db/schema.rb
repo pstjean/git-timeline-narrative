@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_16_012056) do
+ActiveRecord::Schema.define(version: 2021_07_22_233030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_07_16_012056) do
     t.bigint "git_commit_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["filename", "git_commit_id"], name: "index_git_files_on_filename_and_git_commit_id", unique: true
     t.index ["git_commit_id"], name: "index_git_files_on_git_commit_id"
   end
 

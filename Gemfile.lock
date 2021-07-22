@@ -103,6 +103,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.11.7-x64-mingw32)
       racc (~> 1.4)
+    pastel (0.8.0)
+      tty-color (~> 0.5)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
     pry (0.14.1)
@@ -196,6 +198,16 @@ GEM
     stimulus-rails (0.2.4)
       rails (>= 6.0.0)
     thor (1.1.0)
+    tty-color (0.6.0)
+    tty-cursor (0.7.1)
+    tty-prompt (0.23.1)
+      pastel (~> 0.8)
+      tty-reader (~> 0.8)
+    tty-reader (0.9.0)
+      tty-cursor (~> 0.7)
+      tty-screen (~> 0.8)
+      wisper (~> 2.0)
+    tty-screen (0.8.1)
     turbo-rails (0.5.11)
       rails (>= 6.0.0)
     tzinfo (2.0.4)
@@ -215,6 +227,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    wisper (2.0.1)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -240,6 +253,7 @@ DEPENDENCIES
   rspec-rails
   rugged (~> 1.1, >= 1.1.1)
   spring
+  tty-prompt
   tzinfo-data
   web-console (>= 4.1.0)
   webpacker (~> 5.0)

@@ -35,10 +35,10 @@ namespace :repository do
               hunk.delta.delta.old_file[:path], hunk.delta.delta.new_file[:path]
 
             file_entity =
-              GitFile.create(filename: new_path, git_commit: commit_entity)
+              GitFile.find_or_create_by(filename: new_path, git_commit: commit_entity)
 
             old_file_entity =
-              GitFile.create(
+              GitFile.find_or_create_by(
                 filename: old_path,
                 git_commit: commit_entity
               ) if old_path != new_path

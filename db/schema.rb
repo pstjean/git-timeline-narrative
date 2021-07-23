@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_233030) do
+ActiveRecord::Schema.define(version: 2021_07_22_235409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "file_lines", force: :cascade do |t|
+    t.integer "new_line_number"
+    t.integer "old_line_number"
+    t.string "line_origin"
+    t.text "content"
+    t.bigint "git_file_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["git_file_id"], name: "index_file_lines_on_git_file_id"
+  end
 
   create_table "file_notes", force: :cascade do |t|
     t.integer "first_line"
@@ -33,6 +44,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_233030) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "object_hash", default: "", null: false
     t.index ["git_repository_id"], name: "index_git_commits_on_git_repository_id"
+    t.index ["object_hash"], name: "index_git_commits_on_object_hash", unique: true
   end
 
   create_table "git_files", force: :cascade do |t|
@@ -57,6 +69,7 @@ ActiveRecord::Schema.define(version: 2021_07_22_233030) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "file_lines", "git_files"
   add_foreign_key "file_notes", "git_files"
   add_foreign_key "file_notes", "git_notes"
   add_foreign_key "git_commits", "git_repositories"

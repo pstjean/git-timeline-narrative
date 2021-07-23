@@ -1,6 +1,7 @@
 class FileLine < ApplicationRecord
   belongs_to :git_file
 
+  # From https://github.com/libgit2/rugged/blob/master/lib/rugged/diff/line.rb
   validates :line_origin,
             inclusion: {
               in: %w[

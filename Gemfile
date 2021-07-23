@@ -39,7 +39,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Use pry for debugging
   gem 'pry'
-  gem 'pry-byebug'
+  gem 'pry-byebug', '~> 3.9'
   gem 'pry-rails'
 end
 

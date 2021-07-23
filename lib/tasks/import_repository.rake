@@ -7,11 +7,8 @@ namespace :repository do
     repo_entity = GitRepository.create(path: args['path'])
     walker = Rugged::Walker.new(repo)
 
-    # walker.sorting(Rugged::SORT_TOPO | Rugged::SORT_REVERSE) # optional
     walker.push(repo.head.target_id)
 
-    # walker.hide(hex_sha_uninteresting)
-    # walker.each { |c| puts c.inspect }
     commit_choices = {}
     walker.each do |c|
       commit_choices["#{c.oid[0..7]} - #{c.message.chomp}".to_sym] = c.oid
@@ -35,7 +32,10 @@ namespace :repository do
               hunk.delta.delta.old_file[:path], hunk.delta.delta.new_file[:path]
 
             file_entity =
-              GitFile.find_or_create_by(filename: new_path, git_commit: commit_entity)
+              GitFile.find_or_create_by(
+                filename: new_path,
+                git_commit: commit_entity
+              )
 
             old_file_entity =
               GitFile.find_or_create_by(
@@ -45,35 +45,17 @@ namespace :repository do
 
             puts hunk.header
             hunk.lines.each do |line|
-              # From https://github.com/libgit2/rugged/blob/master/lib/rugged/diff/line.rb
-              possible_line_origins = %i[
-                context
-                addition
-                deletion
-                eof_no_newline
-                eof_newline_added
-                eof_newline_removed
-                file_header
-                hunk_header
-                binary
-              ]
+              FileLine.create(
+                line_origin: line.line_origin.to_s,
+                content: line.content,
+                git_file: file_entity,
+                old_line_number: line.old_lineno,
+                new_line_number: line.new_lineno
+              )
             end
           end
         end
-      # commit.diff.patches[0].hunks[0].delta.delta
-      # Hunk Patch
-      # commit.diff.patches[0].hunks[0].delta
-      # Hunk Diff Delta
-      # commit.diff.patches[0].hunks[0].delta.delta
-
-      # puts commit.oid
     end
-
-    # if answer.downcase == 'y'
-    #   commit_entities.push(
-    #     GitCommit.create(object_hash: c.oid, git_repository: repo_entity)
-    #   )
-    # end
 
     walker.reset
   end

@@ -107,12 +107,12 @@ GEM
       tty-color (~> 0.5)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
-    pry (0.14.1)
+    pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
-    pry-byebug (3.8.0)
+    pry-byebug (3.9.0)
       byebug (~> 11.0)
-      pry (~> 0.10)
+      pry (~> 0.13.0)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     puma (5.3.2)
@@ -242,7 +242,7 @@ DEPENDENCIES
   listen (~> 3.3)
   pg (~> 1.1)
   pry
-  pry-byebug
+  pry-byebug (~> 3.9)
   pry-rails
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)

@@ -3,6 +3,10 @@ class GitNotesController < ApplicationController
     @git_notes = GitNote.all
   end
 
+  def show 
+    @git_note = GitNote.find(params[:id])
+  end
+
   # Commit hash
   # File name
   # First line

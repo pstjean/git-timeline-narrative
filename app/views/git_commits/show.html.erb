@@ -1,0 +1,8 @@
+<h1>GitCommits#show</h1>
+<h2>SHA: <%= @commit.object_hash %></h3>
+<% @commit.git_files.each do |file| %>
+<h3><%= file.filename %></h3>
+  <% file.file_lines.each do |line| %>
+    <%= render partial: "line", locals: {line: line} %>
+  <% end %>
+<% end %>

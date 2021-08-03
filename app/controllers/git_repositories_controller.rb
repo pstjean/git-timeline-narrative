@@ -22,6 +22,10 @@ class GitRepositoriesController < ApplicationController
   end
 
   def destroy
+    @git_repository = GitRepository.find(params[:id])
+    @git_repository.destroy
+
+    redirect_to git_repositories_path
   end
 
   private

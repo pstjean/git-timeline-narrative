@@ -1,3 +1,9 @@
 <h1>Repository Path: <%= @git_repository.path %></h1>
 
-<p>Diff view will live here></p>
+<p>Diff view will live here</p>
+
+<p>
+<%= link_to "Delete Repository", git_repository_path(@git_repository),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %>
+</p>

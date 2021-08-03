@@ -1,0 +1,15 @@
+<h1>New Repository</h1>
+
+<%= form_with model: @git_repository do |form| %>
+  <div>
+    <%= form.label :path %><br>
+    <%= form.text_area :path %>
+    <% @git_repository.errors.full_messages_for(:path).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

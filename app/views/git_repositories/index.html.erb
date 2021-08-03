@@ -4,10 +4,10 @@
 <ul>
   <% @git_repositories.each do |git_repository| %>
     <li>
-      <!-- show list of repositories with links to each -->
-      <a href="/git_repositories/<%= git_repository.id %>">
-        <%= git_repository.path %>
-      </a>
+      <!-- show list of git repositories along with links -->
+      <%= link_to git_repository.path, git_repository %>
     </li>
   <% end %>
 </ul>
+
+<%= link_to "Add New Git Repository", new_git_repository_path %>

@@ -1,0 +1,13 @@
+<h1>GitRepositories#index</h1>
+<p>Find me in app/views/git_repositories/index.html.erb</p>
+
+<ul>
+  <% @git_repositories.each do |git_repository| %>
+    <li>
+      <!-- show list of repositories with links to each -->
+      <a href="/git_repositories/<%= git_repository.id %>">
+        <%= git_repository.path %>
+      </a>
+    </li>
+  <% end %>
+</ul>

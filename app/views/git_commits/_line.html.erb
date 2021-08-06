@@ -43,7 +43,7 @@
   text-align:right;
 }
 </style>
-<div class="file-line <%= origin %>-line">
+<div data-line-id="<%= line.id %>"  data-git-file-target="line" class="file-line <%= origin %>-line">
   <span class="gutter line-number" style="color: <%= color %>">
     <%= ol > 0 ? ol : '' %>
   </span>

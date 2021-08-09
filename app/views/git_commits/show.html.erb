@@ -2,6 +2,14 @@
 <h2>SHA: <%= @commit.object_hash %></h3>
 <% @commit.git_files.each do |file| %>
 <h3><%= file.filename %></h3>
+  <%= form_with model: [@git_note, FileNote.new] do |form| %>
+    <%= form.text_area :comment, size: "60x10" %>
+    <%= form.collection_select :file_line_ids, FileLine.where(git_file: file), :id, :content, {}, {multiple: true}%>
+    <%= form.hidden_field :git_file_id, value: file.id %>
+    <%= form.submit %>
+  <% end %>
+
+  <strong>Where's the form?</strong>
   <div data-controller="git-file">
     <% file.file_lines.each do |line| %>
       <%= render partial: "line", locals: {line: line} %>

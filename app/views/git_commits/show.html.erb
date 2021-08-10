@@ -1,5 +1,9 @@
-<h1>GitCommits#show</h1>
-<h2>SHA: <%= @commit.object_hash %></h3>
+<h1>Repository Path: <%= @git_repository.path %></h1>
+
+<div id="main">
+<%= link_to "Prev", [@git_repository, @prev_commit], class:"prev-button" %><h2 id="hash">SHA: <%= @commit.object_hash %></h2><%= link_to "Next", [@git_repository, @next_commit], class:"next-button" %>
+</div>
+
 <% @commit.git_files.each do |file| %>
 <h3><%= file.filename %></h3>
   <div
@@ -20,3 +24,11 @@
     <% end %>
   </div>
 <% end %>
+
+<p>
+<button class="delete-button">
+<%= link_to "Delete Repository", git_repository_path(@git_repository),
+                  method: :delete,
+                  data: { confirm: "Are you sure?" } %>
+</button>
+</p>

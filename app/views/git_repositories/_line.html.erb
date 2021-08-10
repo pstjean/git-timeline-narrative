@@ -1,0 +1,55 @@
+<%
+  ol = line.old_line_number
+  nl = line.new_line_number
+  origin = line.line_origin
+  content = line.content
+  indicator = case origin
+                when 'addition' then '+'
+                when 'deletion' then '-'
+                else ' '
+              end
+  color = case origin
+            when 'addition' then 'green'
+            when 'deletion' then 'red'
+            else 'auto'
+          end
+ %>
+<style type="text/css">
+.file-line {
+  font-family:monospace;
+  display:flex;
+  color: #777;
+  padding:0.25em 0;
+  filter: opacity(0.75);
+}
+.file-line:hover {
+  filter: opacity(1);
+}
+.deletion-line {
+  background-color: rgba(255,0,0,0.2);
+  color: #000;
+}
+.addition-line {
+  background-color: rgba(0,255,0,0.3);
+  color: #000;
+}
+.gutter {
+  user-select: none;
+}
+.line-number {
+  flex: 0 0 2em;
+  font-weight: bold;
+  padding-right: 1em;
+  text-align:right;
+}
+</style>
+<div class="file-line <%= origin %>-line">
+  <span class="gutter line-number" style="color: <%= color %>">
+    <%= ol > 0 ? ol : '' %>
+  </span>
+  <span class="gutter line-number" style="color: <%= color %>">
+    <%= nl > 0 ? nl : '' %>
+  </span>
+  <span class="gutter" style="flex: 0 0 1em"><%= indicator %></span>
+  <span style="flex-grow: 1"><%= content %></span>
+</div>

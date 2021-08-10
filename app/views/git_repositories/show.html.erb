@@ -1,9 +1,21 @@
-<h1>Repository Path: <%= @git_repository.path %></h1>
+<!-- <h1>Repository Path: <%= @git_repository.path %></h1> -->
+<h1>GitRepository#show</h1>
 
-<p>Diff view will live here</p>
+<!-- <div id="main">
+<button class="prev-button">Prev</button><h2 id="hash">SHA: <%= @commit.object_hash %></h2><button class="next-button">Next</button>
+</div>
+
+<% @commit.git_files.each do |file| %>
+<h3><%= file.filename %></h3>
+  <% file.file_lines.each do |line| %>
+    <%= render partial: "line", locals: {line: line} %>
+  <% end %>
+<% end %>
 
 <p>
+<button class="delete-button">
 <%= link_to "Delete Repository", git_repository_path(@git_repository),
                   method: :delete,
                   data: { confirm: "Are you sure?" } %>
-</p>
+</button>
+</p> -->

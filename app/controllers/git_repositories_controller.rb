@@ -5,6 +5,9 @@ class GitRepositoriesController < ApplicationController
 
   def show
     @git_repository = GitRepository.find(params[:id])
+    @commit = @git_repository.git_commits.first
+
+    redirect_to git_repository_git_commit_path(@git_repository.id, @commit.id)
   end
 
   def new

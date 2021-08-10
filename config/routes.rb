@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   end
   # nested resource file_notes under resource git_notes
   resources :git_notes, only: [:index, :show, :create]  do
-    resources :file_notes, only: [:index, :create, :edit, :update, :destroy]
+    resources :file_notes, only: [:index, :create, :edit, :update, :destroy, :new]
   end
 end

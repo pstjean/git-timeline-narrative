@@ -42,8 +42,12 @@
   padding-right: 1em;
   text-align:right;
 }
+
+.highlight {
+  background-color: yellow;
+}
 </style>
-<div data-line-id="<%= line.id %>"  data-git-file-target="line" class="file-line <%= origin %>-line">
+<div data-line-id="<%= line.id %>"  data-git-file-target="line" class="file-line <%= origin %>-line <%= highlight ? 'highlight' : '' %>">
   <span class="gutter line-number" style="color: <%= color %>">
     <%= ol > 0 ? ol : '' %>
   </span>

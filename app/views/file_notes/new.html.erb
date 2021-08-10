@@ -1,0 +1,10 @@
+<turbo-frame id="git_note_file_note">
+  <%= form_with model: [@git_note, FileNote.new] do |form| %>
+    <%= form.text_area :comment, size: "60x10" %>
+    <% params[:line_ids].each do |ln_id| %>
+      <%= form.hidden_field :file_line_ids, multiple: true, value: ln_id %>
+    <% end %>
+    <%= form.hidden_field :git_file_id, value: @git_file.id %>
+    <%= form.submit %>
+  <% end %>
+</turbo-frame>

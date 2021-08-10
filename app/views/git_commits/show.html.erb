@@ -2,17 +2,21 @@
 <h2>SHA: <%= @commit.object_hash %></h3>
 <% @commit.git_files.each do |file| %>
 <h3><%= file.filename %></h3>
-  <%= form_with model: [@git_note, FileNote.new] do |form| %>
-    <%= form.text_area :comment, size: "60x10" %>
-    <%= form.collection_select :file_line_ids, FileLine.where(git_file: file), :id, :content, {}, {multiple: true}%>
-    <%= form.hidden_field :git_file_id, value: file.id %>
-    <%= form.submit %>
-  <% end %>
+  <div
+    data-controller="git-file"
+    data-git-file-git-note-id-value="<%= @git_note.id %>"
+    data-git-file-file-id-value="<%= file.id %>">
+    <% file_notes = file.file_notes.map { |nt| { note: nt, line_ids: nt.file_lines.ids, last_line_id: nt.file_lines.maximum("id") } } %>
+    <% file.file_lines.order(id: :asc).each do |line| %>
 
-  <strong>Where's the form?</strong>
-  <div data-controller="git-file">
-    <% file.file_lines.each do |line| %>
-      <%= render partial: "line", locals: {line: line} %>
+      <% highlight = file_notes.find { |nt| nt[:line_ids].find { |ln_id| ln_id == line.id }} %>
+      <%= render partial: "line", locals: {line: line, highlight: highlight } %>
+      <% line_note = file_notes.find { |nt| nt[:last_line_id] == line.id } %>
+      <% if line_note %>
+        <div style="border:1px solid black; padding: 1em">
+          <span><%= line_note[:note].comment %></span>
+        </div>
+      <% end %>
     <% end %>
   </div>
 <% end %>

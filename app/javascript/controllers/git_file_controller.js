@@ -2,44 +2,36 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
   static targets = ["line"];
-  static values = { nexus: Number, nexusLoc: Object };
+  static values = { nexus: Number, nexusLoc: Object, lineIds: Array, gitNoteId: Number, fileId: Number };
 
   lineDomElement(id) {
     return document.querySelector(`[data-line-id="${id}"]`);
   }
 
   lineMousedOver(e) {
-    e.target.closest('[data-git-file-target="line"]').style.backgroundColor =
-      "yellow";
+    const lineEl = e.target.closest('[data-git-file-target="line"]')
+    lineEl.style.backgroundColor = "yellow";
+    this.lineIdsValue = this.lineIdsValue.concat([lineEl.dataset.lineId])
   }
 
   lineMousedUp(e) {
-    console.log(this.lineTargets);
+    console.log(this.lineIdsValue);
     this.lineTargets.forEach((line) => {
       line.removeEventListener("mouseenter", this.lineMousedOver);
       line.removeEventListener("mouseup", this.lineMousedUp);
     });
 
     const end = e.target.closest('[data-git-file-target="line"]');
-    end.style.backgroundColor = "purple";
+    end.style.backgroundColor = "orange";
     this.insertNoteEditor(end);
   }
 
   insertNoteEditor(line) {
-    // We'd want to insert an element with its own stimulus controller
-    const editor = document.createElement("div")
-    editor.setAttribute("data-controller", "note");
+    // <turbo-frame id="git_note_file_note" src="/git_notes/<%= @git_note.id %>/file_notes/new?<%= file_line_ids_param %>file_id=1">
+    const editor = document.createElement("turbo-frame")
+    editor.setAttribute("src", `/git_notes/${this.gitNoteIdValue}/file_notes/new?${this.lineIdsValue.map(id => `line_ids[]=${id}`).join('&')}&file_id=${this.fileIdValue}`)
+    editor.id = "git_note_file_note"
 
-    const edButton = document.createElement("button")
-    edButton.innerText = "Save"
-    edButton.setAttribute("data-action", "click->note#save")
-
-    const edInput = document.createElement("textarea");
-
-    editor.append(edInput, edButton)
-    console.log(editor)
-
-    //[edInput, edButton].forEach(el => editor.appendChild(el))
     line.insertAdjacentElement("afterend", editor);
   }
 
@@ -55,7 +47,8 @@ export default class extends Controller {
           this.nexusIdValue = e.target.closest(
             '[data-git-file-target="line"]'
           ).dataset.lineId;
-          this.lineDomElement(this.nexusIdValue).style.backgroundColor = "blue";
+          this.lineIdsValue = [this.nexusIdValue] // Reset line IDs to begin new range
+          this.lineDomElement(this.nexusIdValue).style.backgroundColor = "orange";
 
           // bottom, height, left, right, top, width, x, y
           this.nexusLocValue = this.lineDomElement(

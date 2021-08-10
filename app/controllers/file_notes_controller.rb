@@ -9,6 +9,11 @@ class FileNotesController < ApplicationController
     end
   end
 
+  def new
+    @git_note = GitNote.find(params[:git_note_id])
+    @git_file = GitFile.find(params[:file_id])
+  end
+
   def edit
   end
 
